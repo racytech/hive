@@ -7,3 +7,7 @@ workspace
 # build output for rust simulators files
 simulators/**/Cargo.lock
 simulators/**/target
+
+
+clients/erigon/erigon
+clients/go-ethereum/go-ethereum

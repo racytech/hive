@@ -9,7 +9,8 @@ ARG local_path=erigon
 COPY $local_path erigon
 
 RUN apk add bash build-base ca-certificates git \
-    && cd erigon && make erigon \
+    && cd erigon \
+    && make BUILD_TAGS=nosqlite,noboltdb,nosilkworm erigon \
     && cp build/bin/erigon /usr/local/bin/erigon
 
 ## Final stage: Sets up the environment for running erigon

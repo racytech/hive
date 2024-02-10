@@ -1,0 +1,3 @@
+- client: erigon
+  nametag: cancun-local
+  dockerfile: local
