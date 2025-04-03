@@ -19,7 +19,7 @@ network_params:
   seconds_per_slot: 4
 additional_services:
   - dora
-  - el_forkmon
+  # - el_forkmon
   # - forky
   # - tracoor
   # - blockscout

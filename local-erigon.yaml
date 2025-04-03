@@ -1,0 +1,48 @@
+network_params:
+  network: "mainnet"
+  network_id: "1"
+  deposit_contract_address: "0x0000000000000000000000000000000000000000"
+  seconds_per_slot: 12
+  num_validator_keys_per_node: 0
+  genesis_delay: 20
+  genesis_gaslimit: 30000000
+  max_per_epoch_activation_churn_limit: 8
+  churn_limit_quotient: 65536
+  ejection_balance: 16000000000
+  eth1_follow_distance: 2048
+  min_validator_withdrawability_delay: 256
+
+execution_clients:
+  - name: "erigon-node-1"
+    client_type: "erigon"
+    image: "local/erigon:latest" # Use your locally built Erigon image
+  - name: "erigon-node-2"
+    client_type: "erigon"
+    image: "local/erigon:latest"
+  - name: "erigon-node-3"
+    client_type: "erigon"
+    image: "local/erigon:latest"
+
+additional_services:
+  - dora
+  - el_forkmon
+  - tx_fuzz
+  - prometheus_grafana
+
+tx_fuzz_params:
+  image: "local/tx-fuzz:latest" # Use your locally built tx-fuzz image
+  tx_fuzz_extra_args: []
+
+prometheus_params:
+  storage_tsdb_retention_time: "1d"
+  storage_tsdb_retention_size: "512MB"
+  min_cpu: 10
+  max_cpu: 1000
+  min_mem: 128
+  max_mem: 2048
+
+dora_params:
+  image: "local/dora:latest" # Use your locally built Dora image
+
+el_forkmon_params:
+  image: "local/el-forkmon:latest" # Use your locally built EL Forkmon image
