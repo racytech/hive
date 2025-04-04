@@ -1,36 +1,85 @@
 network_params:
-  network: "mainnet"
-  network_id: "1"
-  deposit_contract_address: "0x0000000000000000000000000000000000000000"
-  seconds_per_slot: 12
-  num_validator_keys_per_node: 0
-  genesis_delay: 20
-  genesis_gaslimit: 30000000
-  max_per_epoch_activation_churn_limit: 8
-  churn_limit_quotient: 65536
-  ejection_balance: 16000000000
-  eth1_follow_distance: 2048
-  min_validator_withdrawability_delay: 256
+  electra_fork_epoch: 1
+  seconds_per_slot: 4
 
-execution_clients:
-  - name: "erigon-node-1"
-    client_type: "erigon"
-    image: "local/erigon:latest" # Use your locally built Erigon image
-  - name: "erigon-node-2"
-    client_type: "erigon"
-    image: "local/erigon:latest"
-  - name: "erigon-node-3"
-    client_type: "erigon"
-    image: "local/erigon:latest"
+  # deposit_contract_address: "0x0000000000000000000000000000000000000000"
+  # seconds_per_slot: 12
+  # num_validator_keys_per_node: 0
+  # genesis_delay: 20
+  # electra_fork_epoch: 1
+  # genesis_gaslimit: 30000000
+  # max_per_epoch_activation_churn_limit: 8
+  # churn_limit_quotient: 65536
+  # ejection_balance: 16000000000
+  # eth1_follow_distance: 2048
+  # min_validator_withdrawability_delay: 256
+
+
+participants:
+  - el_type: besu
+    el_image: ethpandaops/besu:main
+    cl_type: prysm
+    cl_image: ethpandaops/prysm-beacon-chain:develop
+  - el_type: reth
+    el_image: ethpandaops/reth:main
+    cl_type: prysm
+    cl_image: ethpandaops/prysm-beacon-chain:develop
+  - el_type: geth
+    el_image: ethpandaops/geth:master
+    cl_type: prysm
+    cl_image: ethpandaops/prysm-beacon-chain:develop
+  - el_type: nethermind
+    el_image: ethpandaops/nethermind:master
+    cl_type: prysm
+    cl_image: ethpandaops/prysm-beacon-chain:develop
+  - el_type: erigon
+    el_image: local/erigon:v3
+    cl_type: prysm
+    cl_image: ethpandaops/prysm-beacon-chain:develop
+  # - el_type: besu
+  #   el_image: ethpandaops/besu:main
+  #   cl_type: prysm
+  #   cl_image: ethpandaops/prysm-beacon-chain:develop
+  # - el_type: reth
+  #   el_image: ethpandaops/reth:main
+  #   cl_type: prysm
+  #   cl_image: ethpandaops/prysm-beacon-chain:develop
+  # - el_type: geth
+  #   el_image: ethpandaops/geth:master
+  #   cl_type: prysm
+  #   cl_image: ethpandaops/prysm-beacon-chain:develop
+  # - el_type: nethermind
+  #   el_image: ethpandaops/nethermind:master
+  #   cl_type: prysm
+  #   cl_image: ethpandaops/prysm-beacon-chain:develop
+
+
+
+# participants_matrix:
+#   el:
+#     - el_type: besu
+#       el_image: ethpandaops/besu:main
+#     - el_type: nethermind
+#       el_image: ethpandaops/nethermind:master
+#     - el_type: reth
+#       el_image: ethpandaops/reth:main
+#     - el_type: geth
+#       el_image: ethpandaops/geth:master
+#     - el_type: erigon
+#       el_image: local/erigon:v3
+#   cl:
+#     - cl_type: prysm
+#       cl_image: ethpandaops/prysm-beacon-chain:develop
+
 
 additional_services:
   - dora
-  - el_forkmon
+  - forkmon
   - tx_fuzz
   - prometheus_grafana
 
 tx_fuzz_params:
-  image: "local/tx-fuzz:latest" # Use your locally built tx-fuzz image
+  image: "ethpandaops/tx-fuzz:latest" # Use the public tx-fuzz image
   tx_fuzz_extra_args: []
 
 prometheus_params:
@@ -42,7 +91,4 @@ prometheus_params:
   max_mem: 2048
 
 dora_params:
-  image: "local/dora:latest" # Use your locally built Dora image
-
-el_forkmon_params:
-  image: "local/el-forkmon:latest" # Use your locally built EL Forkmon image
+  image: "ethpandaops/dora:master-latest" # Use the public Dora image

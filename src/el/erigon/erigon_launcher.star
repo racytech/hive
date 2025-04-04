@@ -142,6 +142,7 @@ def get_config(
             if constants.NETWORK_NAME.shadowfork in launcher.network
             else ""
         ),
+        "--externalcl",
         "--networkid={0}".format(launcher.networkid),
         "--log.console.verbosity=" + log_level,
         "--datadir=" + EXECUTION_DATA_DIRPATH_ON_CLIENT_CONTAINER,
